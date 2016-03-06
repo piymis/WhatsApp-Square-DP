@@ -11,15 +11,15 @@ def getImageFromWeb(url):
 def getImageFromDisk(file):
     try:
         im = Image.open(file)
+        print("Opened image {}".format(file))
+        return process(im, file)
     except:
         return "Error opening image..."
-    else:
-        print("Opened image {}".format(file))
-    return process(im, file)
+    
     
 def process(im, file="output.jpg"):
-    if isLandscape(im.size) == False:
-        return "Please provide landscape image. Only they are supported as of now"
+    if not isLandscape(im.size):
+        print("Please provide landscape image. Only they are supported as of now")
     else:
         new_im = Image.new(im.mode, (max(im.size), max(im.size)), color=0)
         new_im.paste(im, box=(0, (im.size[0]-im.size[1])//2))
