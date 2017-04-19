@@ -78,7 +78,7 @@ def main():
     # Mandatory source image file
     parser.add_argument("path", help="Input image file to resize")
     parser.add_argument("-r", "--remote", help="Used for remote fetching of images from web",
-            const=True, default=False, nargs='?')
+            action="store_true")
     args = parser.parse_args()
 
     if args.remote:
