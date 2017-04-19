@@ -1,12 +1,15 @@
 #! /usr/bin/python3
 from PIL import Image
 import sys, os
+import argparse
 
 isLandscape = lambda x: max(x)==x[0]
 
 def getImageFromWeb(url):
     '''
+    TODO
     '''
+    return None
 
 def getImageFromDisk(file):
     try:
@@ -15,7 +18,6 @@ def getImageFromDisk(file):
         return process(im, file)
     except IOError:
         return "Error opening image..."
-
 
 def process(im, file="output.jpg"):
     if not isLandscape(im.size):
@@ -28,11 +30,22 @@ def process(im, file="output.jpg"):
         new_im.save(outfile)
         return "Image saved as {}".format(outfile)
 
+def main():
+    '''
+    Arguments:
+        image - Input image file
+        [-h | --help] - Usage information
+    '''
+    parser = argparse.ArgumentParser(description="Convert images to square shape for"
+                "use as DP in whatsapp and other social applications")
+
+    # Mandatory source image file
+    parser.add_argument("image", help="Input image file to resize")
+    args = parser.parse_args()
+
+    # Resize
+    res = getImageFromDisk(args.image)
+    print(res)
+
 if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        print ("Please provide input file!")
-    else:
-        res = getImageFromDisk(sys.argv[1])
-        print(res)
-
-
+    main()
