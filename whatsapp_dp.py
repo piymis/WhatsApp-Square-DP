@@ -53,18 +53,19 @@ def process(filedata, filename):
     except IOError:
         print("Error opening image...")
         return False
+    offset = ((max(im.size)-min(im.size))//2)
 
+    coordinates = [0, offset]
     if not isLandscape(im.size):
-        print("Please provide landscape image. Only they are supported as of now")
-        return False
-    else:
-        new_im = Image.new(im.mode, (max(im.size), max(im.size)), color=0)
-        new_im.paste(im, box=(0, (im.size[0]-im.size[1])//2))
-        (filename, fileExtension) = os.path.splitext(filename)
-        outfile = '{fname}_i{fext}'.format(fname=filename, fext=fileExtension)
-        new_im.save(outfile)
-        print("Image saved as {}".format(outfile))
-        return True
+        coordinates.reverse()
+
+    new_im = Image.new(im.mode, (max(im.size), max(im.size)), color=0)
+    new_im.paste(im, box=tuple(coordinates))
+    (filename, fileExtension) = os.path.splitext(filename)
+    outfile = '{fname}_i{fext}'.format(fname=filename, fext=fileExtension)
+    new_im.save(outfile)
+    print("Image saved as {}".format(outfile))
+    return True
 
 def main():
     '''
