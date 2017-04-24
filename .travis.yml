@@ -8,5 +8,5 @@ install:
   - pip install .
   - pip install -r requirements.txt
 # command to run tests
-script: echo "Dummy test script: Pass!"
+script: make test
 
