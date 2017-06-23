@@ -1,4 +1,13 @@
 #! /usr/bin/python3
+'''
+Python script to create Square DP Images for use with WhatsApp
+
+Usage:
+
+python whatsapp_dp.py input_image_filename
+
+Output file is named as input_image_filename_i.jpg
+'''
 
 from PIL import Image
 from io import BytesIO
